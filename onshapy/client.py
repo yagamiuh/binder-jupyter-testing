@@ -1,18 +1,13 @@
 import requests, json
 
 class OnShapeClient:
-    def __init__(self):
-        f = open("/tmp/auth-onshape.json")
-        tokens = json.load(f)
-        self.refresh_token = tokens["refresh_token"]
-        self.access_token = tokens["access_token"]
-        self.client_id = tokens["client_id"]
-        self.client_secret = tokens["client_secret"]
+    def __init__(self, client = ""):
+        self.client = client
 
     def __refresh_token(self):
         try:
-            url = "https://oauth.onshape.com/oauth/token"
-            payload= f'grant_type=refresh_token&refresh_token={self.refresh_token}&client_id={self.client_id}&client_secret={self.client_secret}'
+            url = "https://onshape-jupyter-extension.cyclic.app/api/get-token"
+            payload= f'hash=={self.client}'
             headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
             response = requests.request("POST", url, headers = headers, data = payload)
             response = json.loads(response.text)
