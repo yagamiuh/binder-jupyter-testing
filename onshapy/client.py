@@ -3,11 +3,12 @@ import requests, json
 class OnShapeClient:
     def __init__(self, client = ""):
         self.client = client
+        self.__refresh_token()
 
     def __refresh_token(self):
         try:
             url = "https://onshape-jupyter-extension.cyclic.app/api/get-token"
-            payload= f'hash=={self.client}'
+            payload= f'hash={self.client}'
             headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
             response = requests.request("POST", url, headers = headers, data = payload)
             response = json.loads(response.text)
