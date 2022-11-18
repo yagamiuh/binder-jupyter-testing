@@ -2,6 +2,7 @@ import requests, json, os
 
 class OnShapeClient:
     def __init__(self, client = ""):
+        print("BEGIN CLIENT")
         self.client = client
         self.__refresh_token()
 
