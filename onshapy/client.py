@@ -2,7 +2,6 @@ import requests, json, os
 
 class OnShapeClient:
     def __init__(self, client = ""):
-        print("working...")
         self.client = client
         self.__refresh_token()
 
@@ -19,17 +18,16 @@ class OnShapeClient:
             except:
                 return False
         else:
-            pass
-            # try:
-            #     url = "https://onshape-jupyter-extension.cyclic.app/api/get-token-jupyterhub"
-            #     payload= f'user={os.environ["JUPYTERHUB_USER"]};token={os.environ["JUPYTERHUB_API_TOKEN"]}'
-            #     headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
-            #     response = requests.request("POST", url, headers = headers, data = payload)
-            #     response = json.loads(response.text)
-            #     self.access_token = response["access_token"]
-            #     return True
-            # except:
-            #     return False
+            try:
+                url = "https://onshape-jupyter-extension.cyclic.app/api/get-token-jupyterhub"
+                payload = {"user": os.environ["JUPYTERHUB_USER"], "token": os.environ["JUPYTERHUB_API_TOKEN"]}
+                headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+                response = requests.request("POST", url, headers = headers, data = payload)
+                response = json.loads(response.text)
+                self.access_token = response["access_token"]
+                return True
+            except:
+                return False
 
     def request(self, method, endpoint, data = None):
         url = f"https://cad.onshape.com/api/v5/{endpoint}"
