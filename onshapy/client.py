@@ -8,7 +8,7 @@ class OnShapeClient:
     def __refresh_token(self):
         if self.client != "":
             try:
-                url = "https://onshape-jupyter-extension.cyclic.app/api/get-token"
+                url = "https://onshape-jupyter-extension.cyclic.app/api/get-token-hash"
                 payload= f'hash={self.client}'
                 headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
                 response = requests.request("POST", url, headers = headers, data = payload)
